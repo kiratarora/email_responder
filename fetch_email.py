@@ -46,14 +46,15 @@ def get_top_emails(top_n):
                 else:
                     body = msg.get_payload(decode=True).decode('utf-8')
                 
-                print(f'Subject: {subject}')
-                print(f'From: {sender}')
-                print(f'Date: {date}')
-                print('--------------------')
-                print(f'Body: {body}')
-
+                # print(f'Subject: {subject}')
+                # print(f'From: {sender}')
+                # print(f'Date: {date}')
+                # print('--------------------')
+                # print(f'Body: {body}')
+    message ={'subject':subject,'sender':sender,'date':date,'body':body}
     # Logout from the server
     mail.logout()
+    return message
 
 if __name__ == "__main__":
     get_top_emails(1)
