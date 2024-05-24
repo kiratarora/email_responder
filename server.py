@@ -21,8 +21,19 @@ def fetch_response():
     result = subprocess.run(['python', 'ai_responder.py', email, password, notes], capture_output=True, text=True)
     # Assuming the script prints the response
     response = result.stdout.strip()
-    print(response)
     
+    
+    return jsonify({'response': response})
+@app.route('/generate-recipe', methods=['POST'])
+def generate_recipe():
+    data = request.get_json()
+    ingredients = data.get('ingredients')
+    dietary_restrictions = data.get('dietaryRestrictions')
+    
+    # Your logic to generate a recipe based on the ingredients and dietary restrictions
+    result = subprocess.run(['python', 'ai_recipe_generator.py', ingredients, dietary_restrictions], capture_output=True, text=True)
+    # Assuming the script prints the response
+    response = result.stdout.strip()
     return jsonify({'response': response})
 
 if __name__ == '__main__':
