@@ -6,6 +6,12 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+@app.route('/',methods = ['GET'])
+@cross_origin()
+def hello():
+    return 'Hello World!'
+
 @app.route('/fetch-response', methods=['POST'])
 @cross_origin()
 def fetch_response():
@@ -25,6 +31,7 @@ def fetch_response():
     
     return jsonify({'response': response})
 @app.route('/generate-recipe', methods=['POST'])
+@cross_origin()
 def generate_recipe():
     data = request.get_json()
     ingredients = data.get('ingredients')
