@@ -2,11 +2,6 @@ import imaplib
 import email
 from email.header import decode_header
 
-# IMAP settings for Gmail
-IMAP_SERVER = 'imap.gmail.com'
-USERNAME = 'kiratarora007@gmail.com'
-PASSWORD = 'gvpa bvyx dcdb mbpu'
-
 def decode_subject(header):
     # Decode email subject
     decoded = decode_header(header)[0]
@@ -15,7 +10,14 @@ def decode_subject(header):
     else:
         return decoded[0]
 
-def get_top_emails(top_n):
+def get_top_emails(emailid,password,top_n=1):
+
+
+    # IMAP settings for Gmail
+    USERNAME = emailid
+    IMAP_SERVER = f'imap.{emailid.split("@")[1]}'
+    PASSWORD = password
+
     # Connect to the IMAP server
     mail = imaplib.IMAP4_SSL(IMAP_SERVER)
     mail.login(USERNAME, PASSWORD)
@@ -46,15 +48,10 @@ def get_top_emails(top_n):
                 else:
                     body = msg.get_payload(decode=True).decode('utf-8')
                 
-                # print(f'Subject: {subject}')
-                # print(f'From: {sender}')
-                # print(f'Date: {date}')
-                # print('--------------------')
-                # print(f'Body: {body}')
     message ={'subject':subject,'sender':sender,'date':date,'body':body}
     # Logout from the server
     mail.logout()
     return message
 
 if __name__ == "__main__":
-    get_top_emails(1)
+    print(get_top_emails('kiratarora007@gmail.com','gvpa bvyx dcdb mbpu')['body'])
