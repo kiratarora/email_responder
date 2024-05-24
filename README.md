@@ -67,3 +67,4 @@ The Email Responder module enables users to input their email ID and an applicat
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
+#### PS: The first fetch can take up to a few minutes since the inactive server gets shut down and needs to be rebooted.
