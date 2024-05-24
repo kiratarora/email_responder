@@ -48,19 +48,32 @@
     <div class="container">
         <h1>Latest Email</h1>
         <p id="displayEmailID"></p>
+        <textarea id="notes" placeholder="Add any notes or specific responses"></textarea><br>
         <div id="loader" class="loader"></div>
         <p id="original_email"></p>
         <p id="response"></p>
+        <button id = 'submitBtn' type="button">Submit</button>
     </div>
 
     <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const notes = document.getElementById('notes').value;
+            localStorage.setItem('notes', notes);
+            window.location.reload(); 
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             const emailid = localStorage.getItem('email');
             const password = localStorage.getItem('password');
+            let notes = '';
+            if (localStorage.getItem('notes') != undefined){
+                notes = localStorage.getItem('notes');
+                localStorage.removeItem('notes')
+            }
 
             document.getElementById('displayEmailID').innerText = `EmailID: ${emailid}`;
 
-            let message = JSON.stringify({ emailid: emailid, password: password })
+            let message = JSON.stringify({ emailid: emailid, password: password, notes: notes })
 
             fetch('http://127.0.0.1:5000/fetch-response', {
                 method: 'POST',

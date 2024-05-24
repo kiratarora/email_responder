@@ -13,11 +13,12 @@ def fetch_response():
     # Get the email and password from the request
     email = request.json.get('emailid')
     password = request.json.get('password')
+    notes = request.json.get('notes')
     
     
 
     # Call the ai_responder.py script and capture its output
-    result = subprocess.run(['python', 'ai_responder.py', email, password], capture_output=True, text=True)
+    result = subprocess.run(['python', 'ai_responder.py', email, password, notes], capture_output=True, text=True)
     # Assuming the script prints the response
     response = result.stdout.strip()
     print(response)
